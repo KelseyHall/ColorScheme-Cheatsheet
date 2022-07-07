@@ -1,7 +1,9 @@
+import ColorForm from './components/form/form';
+
 function App() {
   return (
     <div className="App">
-      <header className="App-header"></header>
+      <ColorForm />
     </div>
   );
 }
