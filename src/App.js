@@ -6,9 +6,9 @@ function App() {
   const [data, setData] = useState(() =>
     localStorage.default ? JSON.parse(localStorage.getItem('default')) : []
   );
-
+  console.log(data);
   useEffect(() => {
-    localStorage.setItem('default', JSON.stringify(data));
+    localStorage.setItem('colorSchemes', JSON.stringify(data));
   }, [data]);
 
   return (
