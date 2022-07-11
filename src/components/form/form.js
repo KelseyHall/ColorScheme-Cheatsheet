@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const inputFormStyle = {
   input: `block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border border-gray-300 appearance-none text-black border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`,
@@ -7,40 +7,59 @@ const inputFormStyle = {
 const buttonStyle =
   'bg-button-dark hover:bg-button-hover text-text-light rounded-full py-1.5 px-4 my-4 ';
 
-const ColorForm = () => {
-  const [HexCode, setHexCode] = useState('');
+const handleSubmit = (e, setData) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const dataObject = {};
+  formData.forEach((value, key) => (dataObject[key] = value));
+  //   console.log(dataObject);
+  return setData(dataObject);
+};
 
+const ColorForm = ({ setData }) => {
+  const [HexCode, setHexCode] = useState('');
+  useEffect(() => {
+    document.getElementById('textColorInput');
+    document.getElementById('ColorPickerInput');
+  }, [setHexCode, HexCode]);
   return (
     <form
       className="flex-col my-4 mx-auto w-10/12"
-      onSubmit={(e) => {
-        e.preventDefault();
-        return console.log(e.target.hexCodeInput.value);
-      }}
+      onSubmit={(e) => handleSubmit(e, setData)}
     >
       <div className="flex">
         <div className="relative  w-10/12">
           <input
+            id="textColorInput"
             type="text"
-            name="hexCodeInput"
-            maxLength="6"
+            name="textColorInput"
+            maxLength="7"
             onChange={(e) => setHexCode(e.target.value)}
             className={inputFormStyle.input}
             placeholder=" "
+            value={HexCode}
           />
           <label className={inputFormStyle.label}>Search Colour</label>
         </div>
-        <input type="color" className="w-2/12" value={'#' + HexCode} />
+        <input
+          id="ColorPickerInput"
+          name="ColorPickerInput"
+          type="color"
+          className="w-2/12"
+          onChange={(e) => setHexCode(e.target.value)}
+          value={HexCode}
+        />
       </div>
 
       <div
         className="w-full h-20 border-2 relative"
-        style={{ backgroundColor: '#' + HexCode }}
+        style={{ backgroundColor: HexCode }}
       >
         <p className="absolute bottom-0 pl-1.5 text-Primary-light">preview</p>
       </div>
       <div className="relative">
         <input
+          id="referenceNameInput"
           type="text"
           name="referenceNameInput"
           className={inputFormStyle.input}
