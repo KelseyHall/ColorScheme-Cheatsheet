@@ -12,7 +12,7 @@ const handleSubmit = (e, setData) => {
   const formData = new FormData(e.target);
   const dataObject = {};
   formData.forEach((value, key) => (dataObject[key] = value));
-  //   console.log(dataObject);
+
   return setData((oldArr) => [...oldArr, dataObject]);
 };
 
