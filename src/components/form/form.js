@@ -7,13 +7,14 @@ const inputFormStyle = {
 const buttonStyle =
   'bg-button-dark hover:bg-button-hover text-text-light rounded-full py-1.5 px-4 my-4 ';
 
-const handleSubmit = (e, setData) => {
+const handleSubmit = (e, setData, setHexCode) => {
   e.preventDefault();
   const formData = new FormData(e.target);
   const dataObject = {};
   formData.forEach((value, key) => (dataObject[key] = value));
-
-  return setData((oldArr) => [...oldArr, dataObject]);
+  setData((oldArr) => [...oldArr, dataObject]);
+  setHexCode('');
+  return;
 };
 
 const ColorForm = ({ setData }) => {
@@ -25,12 +26,19 @@ const ColorForm = ({ setData }) => {
   return (
     <form
       className="flex-col my-4 mx-auto w-10/12"
-      onSubmit={(e) => handleSubmit(e, setData)}
+      onSubmit={(e) => handleSubmit(e, setData, setHexCode)}
     >
       <label>
-        Scheme Name
-        <input type="text" name="schemeName" maxLength="20" required />
+        Scheme Name:
+        <input
+          type="text"
+          name="schemeName"
+          maxLength="20"
+          required
+          className="border-b-2 my-2"
+        />
       </label>
+      <h3>Add Colour</h3>
       <div className="flex">
         <div className="relative  w-10/12">
           <input
