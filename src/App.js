@@ -4,9 +4,11 @@ import HomepageScheme from './components/myScheme/homePageScheme';
 
 function App() {
   const [data, setData] = useState(() =>
-    localStorage.default ? JSON.parse(localStorage.getItem('default')) : []
+    localStorage.colorSchemes
+      ? JSON.parse(localStorage.getItem('colorSchemes'))
+      : []
   );
-  console.log(data);
+  // console.log(data);
   useEffect(() => {
     localStorage.setItem('colorSchemes', JSON.stringify(data));
   }, [data]);
