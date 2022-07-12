@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 const inputFormStyle = {
   input: `block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border border-gray-300 appearance-none text-black border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`,
@@ -10,12 +11,14 @@ const buttonStyle =
 const handleSubmit = (e, setData, setHexCode) => {
   e.preventDefault();
   const formData = new FormData(e.target);
-  const dataObject = {};
+  const dataObject = { id: uuid };
   formData.forEach((value, key) => (dataObject[key] = value));
   setData((oldArr) => [...oldArr, dataObject]);
   setHexCode('');
   return;
 };
+
+const uuid = uuidv4();
 
 const ColorForm = ({ setData }) => {
   const [HexCode, setHexCode] = useState('');
@@ -26,6 +29,7 @@ const ColorForm = ({ setData }) => {
   return (
     <form
       className="flex-col my-4 mx-auto w-10/12"
+      key={uuid}
       onSubmit={(e) => handleSubmit(e, setData, setHexCode)}
     >
       <label>

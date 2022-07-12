@@ -11,12 +11,17 @@ const groupScheme = (fullArray, property) => {
   }, {});
 };
 
-const DisplaySchemes = ({ data }) => {
+const handleDelete = (item, data, setData) => {
+  const result = data.filter((each) => each.schemeName !== item);
+  return setData(result);
+};
+
+const DisplaySchemes = ({ data, setData }) => {
   let groupedData = groupScheme(data, 'schemeName');
   let groupedKeys = Object.keys(groupedData);
   return groupedKeys.map((eachKey) => (
     <div key={eachKey} className="flex-row  w-6/12 h-auto m-3">
-      <Link to="/">
+      <Link to="/scheme/">
         <h3>{eachKey}</h3>
         <div className="w-full h-20 flex basis-auto">
           {groupedData[eachKey].map((each) => (
@@ -28,6 +33,9 @@ const DisplaySchemes = ({ data }) => {
           ))}
         </div>
       </Link>
+      <button onClick={() => handleDelete(eachKey, data, setData)}>
+        Delete
+      </button>
     </div>
   ));
 };
