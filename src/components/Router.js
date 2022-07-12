@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import App from '../App';
 import MySchemePage from './myScheme/MySchemePage';
 import { useEffect, useState } from 'react';
+import IndividualScheme from './myScheme/IndividualScheme';
 
 const RouterSwitch = () => {
   const [data, setData] = useState(() =>
@@ -25,6 +26,7 @@ const RouterSwitch = () => {
         path="/MySchemes"
         element={<MySchemePage data={data} setData={setData} />}
       ></Route>
+      <Route path="/scheme/" element={<IndividualScheme />}></Route>
     </Routes>
   );
 };
