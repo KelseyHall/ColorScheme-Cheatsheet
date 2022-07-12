@@ -1,13 +1,12 @@
 import DisplaySchemes from './DisplayScheme';
 import PopupDisplay from './popup';
 
-const MySchemePage = ({ data }) => {
+const MySchemePage = ({ data, setData }) => {
   return (
     <div>
       <h2>All Schemes</h2>
       <DisplaySchemes data={data} />
-      <PopupDisplay />
-      <button>Add</button>
+      <PopupDisplay setData={setData} />
     </div>
   );
 };
