@@ -1,15 +1,17 @@
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 import ColorForm from './components/form/form';
 import HomepageScheme from './components/myScheme/homePageScheme';
 
-function App() {
-  const [data, setData] = useState(() =>
-    localStorage.default ? JSON.parse(localStorage.getItem('default')) : []
-  );
-
-  useEffect(() => {
-    localStorage.setItem('default', JSON.stringify(data));
-  }, [data]);
+function App({ data, setData }) {
+  // const [data, setData] = useState(() =>
+  //   localStorage.colorSchemes
+  //     ? JSON.parse(localStorage.getItem('colorSchemes'))
+  //     : []
+  // );
+  // // console.log(data);
+  // useEffect(() => {
+  //   localStorage.setItem('colorSchemes', JSON.stringify(data));
+  // }, [data]);
 
   return (
     <div className="App">

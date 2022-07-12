@@ -27,6 +27,10 @@ const ColorForm = ({ setData }) => {
       className="flex-col my-4 mx-auto w-10/12"
       onSubmit={(e) => handleSubmit(e, setData)}
     >
+      <label>
+        Scheme Name
+        <input type="text" name="schemeName" maxLength="20" required />
+      </label>
       <div className="flex">
         <div className="relative  w-10/12">
           <input

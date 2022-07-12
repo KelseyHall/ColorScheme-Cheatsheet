@@ -1,15 +1,14 @@
+import { Link } from 'react-router-dom';
+import DisplaySchemes from './DisplayScheme';
+
 const HomepageScheme = ({ data }) => {
   return (
     <div>
-      <h2>My Schemes</h2>
-      <div className="w-6/12 h-20 flex basis-auto">
-        {data.map((each) => (
-          <div
-            key={each.textColorInput}
-            style={{ backgroundColor: each.textColorInput }}
-            className="w-full h-full "
-          ></div>
-        ))}
+      <h2>
+        <Link to="/MySchemes">My Schemes</Link>
+      </h2>
+      <div className="flex ">
+        <DisplaySchemes data={data} />
       </div>
     </div>
   );
