@@ -10,7 +10,7 @@ const RouterSwitch = () => {
       ? JSON.parse(localStorage.getItem('colorSchemes'))
       : []
   );
-  // console.log(data);
+
   useEffect(() => {
     localStorage.setItem('colorSchemes', JSON.stringify(data));
   }, [data]);

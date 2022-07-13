@@ -1,19 +1,13 @@
 import { Link } from 'react-router-dom';
-
-const groupScheme = (fullArray, property) => {
-  return fullArray.reduce((acc, obj) => {
-    let key = obj[property];
-    if (!acc[key]) {
-      acc[key] = [];
-    }
-    acc[key].push(obj);
-    return acc;
-  }, {});
-};
+import groupScheme from '../reducer';
 
 const handleDelete = (item, data, setData) => {
   const result = data.filter((each) => each.schemeName !== item);
   return setData(result);
+};
+
+const urlFriendlyName = (name) => {
+  return name.trim().replaceAll(' ', '%');
 };
 
 const DisplaySchemes = ({ data, setData }) => {
@@ -21,7 +15,7 @@ const DisplaySchemes = ({ data, setData }) => {
   let groupedKeys = Object.keys(groupedData);
   return groupedKeys.map((eachKey) => (
     <div key={eachKey} className="flex-row  w-6/12 h-auto m-3">
-      <Link to={'/scheme?' + eachKey}>
+      <Link to={'/scheme?' + urlFriendlyName(eachKey)}>
         <h3>{eachKey}</h3>
         <div className="w-full h-20 flex basis-auto">
           {groupedData[eachKey].map((each) => (
