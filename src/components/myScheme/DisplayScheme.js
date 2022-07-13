@@ -21,7 +21,7 @@ const DisplaySchemes = ({ data, setData }) => {
   let groupedKeys = Object.keys(groupedData);
   return groupedKeys.map((eachKey) => (
     <div key={eachKey} className="flex-row  w-6/12 h-auto m-3">
-      <Link to="/scheme/">
+      <Link to={'/scheme?' + eachKey}>
         <h3>{eachKey}</h3>
         <div className="w-full h-20 flex basis-auto">
           {groupedData[eachKey].map((each) => (

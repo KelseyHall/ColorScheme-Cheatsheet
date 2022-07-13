@@ -26,7 +26,7 @@ const RouterSwitch = () => {
         path="/MySchemes"
         element={<MySchemePage data={data} setData={setData} />}
       ></Route>
-      <Route path="/scheme/" element={<IndividualScheme />}></Route>
+      <Route path="/scheme" element={<IndividualScheme data={data} />}></Route>
     </Routes>
   );
 };
