@@ -37,8 +37,8 @@ const IndividualScheme = ({ data, setData }) => {
   };
 
   return (
-    <div className="max-w-screen-md m-auto">
-      <h2 className="">Scheme {schemeNameConvert}</h2>
+    <div className="max-w-screen-md m-auto p-3">
+      <h2 className="text-2xl font-bold my-2 ">Scheme {schemeNameConvert}</h2>
 
       <form className="float-left">
         <label>Display:</label>
@@ -58,14 +58,19 @@ const IndividualScheme = ({ data, setData }) => {
       >
         {showDetails ? 'Show Details' : 'Hide Details'}
       </button>
-      <div className="h-20 w-full">
+      <div className="h-fit  w-full">
         {groupedData[schemeNameConvert].map((each) => {
           return (
-            <div key={each.id} className="w-full h-full my-3 flex">
+            <div
+              key={each.id}
+              className="w-full h-full my-3 flex-wrap sm:flex-nowrap flex block sm:flex-row"
+            >
               {showDetails ? null : (
-                <div className="flex-col w-2/6 font-bold">
+                <div className="flex-col w-full sm:w-3/6 md:2-6 font-bold">
                   <h4 className="m-1 w-full block">
-                    {each.referenceNameInput}
+                    {each.referenceNameInput.length !== 0
+                      ? each.referenceNameInput
+                      : 'unknown name'}
                   </h4>
                   <p className="m-1">
                     <span className="text-Primary-light">HEX</span>{' '}
@@ -79,7 +84,13 @@ const IndividualScheme = ({ data, setData }) => {
               )}
               <div
                 style={{ backgroundColor: each.textColorInput }}
-                className="w-full h-full my-3 p-1  "
+                className="w-11/12 sm:5/12 md:3/6 h-20 my-3 p-1  "
+                onClick={() => {
+                  console.log('click');
+                  navigator.clipboard.writeText(
+                    displayCovertedCode(each.textColorInput)
+                  );
+                }}
               >
                 {showDetails ? (
                   <p className="bg-white w-fit p-1 font-bold">
@@ -87,7 +98,10 @@ const IndividualScheme = ({ data, setData }) => {
                   </p>
                 ) : null}
               </div>
-              <button onClick={() => handleDelete(each.id, data, setData)}>
+              <button
+                className="w-1/12"
+                onClick={() => handleDelete(each.id, data, setData)}
+              >
                 X
               </button>
             </div>
