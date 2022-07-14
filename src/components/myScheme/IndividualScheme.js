@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import groupScheme from '../reducer';
+import PopupDisplay from './popup';
 
 const handleDelete = (item, data, setData) => {
   const result = data.filter((each) => each.id !== item);
@@ -8,6 +9,7 @@ const handleDelete = (item, data, setData) => {
 };
 
 const IndividualScheme = ({ data, setData }) => {
+  const [showDetails, setShowDetails] = useState(true);
   let groupedData = groupScheme(data, 'schemeName');
 
   const schemeName = useLocation().search;
@@ -16,7 +18,23 @@ const IndividualScheme = ({ data, setData }) => {
 
   return (
     <div>
-      <h3>Scheme {schemeNameConvert}</h3>
+      <h2 className="h2">Scheme {schemeNameConvert}</h2>
+
+      <label>Display:</label>
+      <select
+        id="displayValue"
+        name="displayValue"
+        onChange={(e) => console.log(e.target.value)}
+      >
+        <option value="hexcode">Hex Code</option>
+        <option value="hsl">HSL</option>
+        <option value="rgb">RGB</option>
+        <option value="rgba">RGBA</option>
+      </select>
+
+      <button onClick={() => setShowDetails(!showDetails)}>
+        {showDetails ? 'Show Details' : 'Hide Details'}
+      </button>
       <div className="h-20 w-8/12">
         {groupedData[schemeNameConvert].map((each) => (
           <div key={each.id} className="w-full h-full my-3 flex">
@@ -30,6 +48,7 @@ const IndividualScheme = ({ data, setData }) => {
             </button>
           </div>
         ))}
+        <PopupDisplay data={data} setData={setData} />
       </div>
     </div>
   );

@@ -5,7 +5,9 @@ const MySchemePage = ({ data, setData }) => {
   return (
     <div>
       <h2>All Schemes</h2>
-      <DisplaySchemes data={data} setData={setData} />
+      <div className="flex-col sm:flex sm:flex-row">
+        <DisplaySchemes data={data} setData={setData} />
+      </div>
       <PopupDisplay setData={setData} />
     </div>
   );
