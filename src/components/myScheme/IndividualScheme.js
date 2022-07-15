@@ -1,3 +1,4 @@
+import { TrashIcon } from '@heroicons/react/outline';
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import groupScheme from '../reducer';
@@ -38,7 +39,7 @@ const IndividualScheme = ({ data, setData }) => {
 
   return (
     <div className="max-w-screen-md m-auto p-3">
-      <h2 className="text-2xl font-bold my-2 ">Scheme {schemeNameConvert}</h2>
+      <h2 className="text-2xl font-bold my-2 ">{schemeNameConvert}</h2>
 
       <form className="float-left">
         <label>Display:</label>
@@ -99,10 +100,10 @@ const IndividualScheme = ({ data, setData }) => {
                 ) : null}
               </div>
               <button
-                className="w-1/12"
+                className="w-1/12 text-Primary-light hover:text-Primary-dark"
                 onClick={() => handleDelete(each.id, data, setData)}
               >
-                X
+                <TrashIcon className="w-5 h-5 " />
               </button>
             </div>
           );
