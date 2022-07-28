@@ -2,6 +2,7 @@ import { TrashIcon } from '@heroicons/react/outline';
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import groupScheme from '../reducer';
+
 import PopupDisplay from './popup';
 
 const handleDelete = (item, data, setData) => {
@@ -60,55 +61,65 @@ const IndividualScheme = ({ data, setData }) => {
         {showDetails ? 'Show Details' : 'Hide Details'}
       </button>
       <div className="h-fit  w-full">
-        {groupedData[schemeNameConvert].map((each) => {
-          return (
-            <div
-              key={each.id}
-              className="w-full h-full my-3 flex-wrap sm:flex-nowrap flex block sm:flex-row"
-            >
-              {showDetails ? null : (
-                <div className="flex-col w-full sm:w-3/6 md:2-6 font-bold">
-                  <h4 className="m-1 w-full block">
-                    {each.referenceNameInput.length !== 0
-                      ? each.referenceNameInput
-                      : 'unknown name'}
-                  </h4>
-                  <p className="m-1">
-                    <span className="text-Primary-light">HEX</span>{' '}
-                    {each.textColorInput}
-                  </p>
-                  <p className="m-1">
-                    <span className="text-Primary-light">RGB</span>{' '}
-                    {hexToRgb(each.textColorInput)}
-                  </p>
-                </div>
-              )}
-              <button
-                onClick={() => {
-                  console.log('click');
-                  navigator.clipboard.writeText(
-                    displayCovertedCode(each.textColorInput)
-                  );
-                }}
-                className="w-11/12 sm:5/12 md:3/6 h-20 my-3 p-1  "
-                style={{ backgroundColor: each.textColorInput }}
+        {groupedData[schemeNameConvert] ? (
+          groupedData[schemeNameConvert].map((each) => {
+            return (
+              <div
+                key={each.id}
+                className="w-full h-full my-3 flex-wrap sm:flex-nowrap flex block sm:flex-row"
               >
-                {showDetails ? (
-                  <p className="bg-white w-fit p-1 font-bold">
-                    {displayCovertedCode(each.textColorInput)}
-                  </p>
-                ) : null}
-              </button>
-              <button
-                className="w-1/12 text-Primary-light hover:text-Primary-dark"
-                onClick={() => handleDelete(each.id, data, setData)}
-              >
-                <TrashIcon className="w-5 h-5 " />
-              </button>
-            </div>
-          );
-        })}
-        <PopupDisplay data={data} setData={setData} />
+                {showDetails ? null : (
+                  <div className="flex-col w-full sm:w-3/6 md:2-6 font-bold">
+                    <h4 className="m-1 w-full block">
+                      {each.referenceNameInput.length !== 0
+                        ? each.referenceNameInput
+                        : 'unknown name'}
+                    </h4>
+                    <p className="m-1">
+                      <span className="text-Primary-light">HEX</span>{' '}
+                      {each.textColorInput}
+                    </p>
+                    <p className="m-1">
+                      <span className="text-Primary-light">RGB</span>{' '}
+                      {hexToRgb(each.textColorInput)}
+                    </p>
+                  </div>
+                )}
+                <button
+                  onClick={() => {
+                    console.log('click');
+                    navigator.clipboard.writeText(
+                      displayCovertedCode(each.textColorInput)
+                    );
+                  }}
+                  className="w-11/12 sm:5/12 md:3/6 h-20 my-3 p-1  "
+                  style={{ backgroundColor: each.textColorInput }}
+                >
+                  {showDetails ? (
+                    <p className="bg-white w-fit p-1 font-bold">
+                      {displayCovertedCode(each.textColorInput)}
+                    </p>
+                  ) : null}
+                </button>
+                <button
+                  className="w-1/12 text-Primary-light hover:text-Primary-dark"
+                  onClick={() => handleDelete(each.id, data, setData)}
+                >
+                  <TrashIcon className="w-5 h-5 " />
+                </button>
+              </div>
+            );
+          })
+        ) : (
+          <div className="w-Full">
+            <h1>{schemeNameConvert} is Empty, Add to scheme</h1>
+          </div>
+        )}
+        <PopupDisplay
+          setData={setData}
+          schemeName={schemeNameConvert}
+          buttonName={'Add Color'}
+        />
       </div>
     </div>
   );

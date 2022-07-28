@@ -8,7 +8,7 @@ const MySchemePage = ({ data, setData }) => {
       <div className="flex-col sm:flex sm:flex-row">
         <DisplaySchemes data={data} setData={setData} />
       </div>
-      <PopupDisplay setData={setData} />
+      <PopupDisplay setData={setData} buttonName={'Add Scheme'} />
     </div>
   );
 };
