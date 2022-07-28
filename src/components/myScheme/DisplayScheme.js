@@ -1,28 +1,26 @@
+import { TrashIcon } from '@heroicons/react/outline';
 import { Link } from 'react-router-dom';
-
-const groupScheme = (fullArray, property) => {
-  return fullArray.reduce((acc, obj) => {
-    let key = obj[property];
-    if (!acc[key]) {
-      acc[key] = [];
-    }
-    acc[key].push(obj);
-    return acc;
-  }, {});
-};
+import groupScheme from '../reducer';
 
 const handleDelete = (item, data, setData) => {
   const result = data.filter((each) => each.schemeName !== item);
   return setData(result);
 };
 
+const urlFriendlyName = (name) => {
+  return name.trim().replaceAll(' ', '%');
+};
+
 const DisplaySchemes = ({ data, setData }) => {
   let groupedData = groupScheme(data, 'schemeName');
   let groupedKeys = Object.keys(groupedData);
   return groupedKeys.map((eachKey) => (
-    <div key={eachKey} className="flex-row  w-6/12 h-auto m-3">
-      <Link to="/scheme/">
-        <h3>{eachKey}</h3>
+    <div
+      key={eachKey}
+      className="flex-row w-11/12 sm:w-6/12 h-auto m-3 relative"
+    >
+      <Link to={'/scheme?' + urlFriendlyName(eachKey)}>
+        <h3 className="font-bold">{eachKey}</h3>
         <div className="w-full h-20 flex basis-auto">
           {groupedData[eachKey].map((each) => (
             <div
@@ -34,7 +32,7 @@ const DisplaySchemes = ({ data, setData }) => {
         </div>
       </Link>
       <button onClick={() => handleDelete(eachKey, data, setData)}>
-        Delete
+        <TrashIcon className="w-5 h-5 text-Primary-light hover:text-Primary-dark absolute top-0 right-0" />
       </button>
     </div>
   ));

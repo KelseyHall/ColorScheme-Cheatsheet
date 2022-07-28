@@ -10,7 +10,7 @@ const RouterSwitch = () => {
       ? JSON.parse(localStorage.getItem('colorSchemes'))
       : []
   );
-  // console.log(data);
+
   useEffect(() => {
     localStorage.setItem('colorSchemes', JSON.stringify(data));
   }, [data]);
@@ -26,7 +26,10 @@ const RouterSwitch = () => {
         path="/MySchemes"
         element={<MySchemePage data={data} setData={setData} />}
       ></Route>
-      <Route path="/scheme/" element={<IndividualScheme />}></Route>
+      <Route
+        path="/scheme"
+        element={<IndividualScheme data={data} setData={setData} />}
+      ></Route>
     </Routes>
   );
 };

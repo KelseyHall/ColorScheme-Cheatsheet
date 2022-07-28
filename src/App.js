@@ -6,7 +6,7 @@ function App({ data, setData }) {
   return (
     <div className="App">
       <ColorForm setData={setData} />
-      <HomepageScheme data={data} />
+      <HomepageScheme data={data} setData={setData} />
     </div>
   );
 }
