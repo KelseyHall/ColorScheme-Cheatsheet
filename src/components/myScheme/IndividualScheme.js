@@ -83,22 +83,22 @@ const IndividualScheme = ({ data, setData }) => {
                   </p>
                 </div>
               )}
-              <div
-                style={{ backgroundColor: each.textColorInput }}
-                className="w-11/12 sm:5/12 md:3/6 h-20 my-3 p-1  "
+              <button
                 onClick={() => {
                   console.log('click');
                   navigator.clipboard.writeText(
                     displayCovertedCode(each.textColorInput)
                   );
                 }}
+                className="w-11/12 sm:5/12 md:3/6 h-20 my-3 p-1  "
+                style={{ backgroundColor: each.textColorInput }}
               >
                 {showDetails ? (
                   <p className="bg-white w-fit p-1 font-bold">
                     {displayCovertedCode(each.textColorInput)}
                   </p>
                 ) : null}
-              </div>
+              </button>
               <button
                 className="w-1/12 text-Primary-light hover:text-Primary-dark"
                 onClick={() => handleDelete(each.id, data, setData)}
