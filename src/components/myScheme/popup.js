@@ -3,7 +3,6 @@ import ColorForm from '../form/form';
 import { PlusCircleIcon } from '@heroicons/react/outline';
 
 const PopupDisplay = ({ ...props }) => {
-  console.log(props);
   const { setData, schemeName, buttonName } = props;
   const [isOpen, setIsOpen] = useState(false);
 

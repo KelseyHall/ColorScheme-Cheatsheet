@@ -22,7 +22,6 @@ const handleSubmit = (e, setData, setHexCode) => {
 };
 
 const ColorForm = ({ setData, schemeName }) => {
-  console.log(schemeName);
   const [HexCode, setHexCode] = useState('');
   useEffect(() => {
     document.getElementById('textColorInput');
