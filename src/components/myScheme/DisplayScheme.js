@@ -1,6 +1,8 @@
 import { TrashIcon } from '@heroicons/react/outline';
+// import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import groupScheme from '../reducer';
+// import useData from '../useData';
 
 const handleDelete = (item, data, setData) => {
   const result = data.filter((each) => each.schemeName !== item);
@@ -14,6 +16,7 @@ const urlFriendlyName = (name) => {
 const DisplaySchemes = ({ data, setData }) => {
   let groupedData = groupScheme(data, 'schemeName');
   let groupedKeys = Object.keys(groupedData);
+
   return groupedKeys.map((eachKey) => (
     <div
       key={eachKey}

@@ -1,7 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
 import App from '../App';
 import MySchemePage from './myScheme/MySchemePage';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 import IndividualScheme from './myScheme/IndividualScheme';
 
 const RouterSwitch = () => {
@@ -17,11 +18,7 @@ const RouterSwitch = () => {
 
   return (
     <Routes>
-      <Route
-        exact
-        path="/"
-        element={<App data={data} setData={setData} />}
-      ></Route>
+      <Route path="/" element={<App data={data} setData={setData} />}></Route>
       <Route
         path="/MySchemes"
         element={<MySchemePage data={data} setData={setData} />}

@@ -15,12 +15,13 @@ const handleSubmit = (e, setData, setHexCode) => {
   const formData = new FormData(e.target);
   const dataObject = { id: uuid() };
   formData.forEach((value, key) => (dataObject[key] = value));
+
   setData((oldArr) => [...oldArr, dataObject]);
   setHexCode('');
   return;
 };
 
-const ColorForm = ({ setData }) => {
+const ColorForm = ({ setData, schemeName }) => {
   const [HexCode, setHexCode] = useState('');
   useEffect(() => {
     document.getElementById('textColorInput');
@@ -32,16 +33,29 @@ const ColorForm = ({ setData }) => {
       key={uuid}
       onSubmit={(e) => handleSubmit(e, setData, setHexCode)}
     >
-      <label>
-        Scheme Name:
+      {!schemeName ? (
+        <label>
+          Scheme Name:
+          <input
+            type="text"
+            name="schemeName"
+            maxLength="20"
+            required
+            className="border-b-2 my-2"
+          />
+        </label>
+      ) : (
         <input
           type="text"
+          readOnly
+          value={schemeName}
           name="schemeName"
           maxLength="20"
           required
-          className="border-b-2 my-2"
+          className="hidden"
         />
-      </label>
+      )}
+
       <h3>Add Colour</h3>
       <div className="flex">
         <div className="relative  w-10/12">

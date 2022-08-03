@@ -2,7 +2,8 @@ import { useState } from 'react';
 import ColorForm from '../form/form';
 import { PlusCircleIcon } from '@heroicons/react/outline';
 
-const PopupDisplay = ({ setData }) => {
+const PopupDisplay = ({ ...props }) => {
+  const { setData, schemeName, buttonName } = props;
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -14,7 +15,7 @@ const PopupDisplay = ({ setData }) => {
         onClick={() => setIsOpen(true)}
       >
         <PlusCircleIcon className="h-8 w-8 mx-auto" />
-        Add Scheme
+        {buttonName}
       </button>
       {isOpen ? (
         <div
@@ -26,7 +27,7 @@ const PopupDisplay = ({ setData }) => {
             <div className="relative bg-white rounded-lg shadow">
               <div className="flex justify-between items-center p-5 rounded-t ">
                 <h3 className="text-xl font-medium text-gray-900 ">
-                  Add Scheme
+                  {schemeName ? `Add color to ${schemeName}` : `Add New Scheme`}
                 </h3>
                 <button
                   type="button"
@@ -48,7 +49,7 @@ const PopupDisplay = ({ setData }) => {
                   </svg>
                 </button>
               </div>
-              <ColorForm setData={setData} />
+              <ColorForm setData={setData} schemeName={schemeName} />
             </div>
           </div>
         </div>

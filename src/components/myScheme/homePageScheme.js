@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+
 import DisplaySchemes from './DisplayScheme';
 
 const HomepageScheme = ({ data, setData }) => {
