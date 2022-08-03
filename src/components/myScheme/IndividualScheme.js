@@ -20,6 +20,44 @@ function hexToRgb(hex) {
   }
   return null;
 }
+const copyText = (text, each, id) => {
+  navigator.clipboard.writeText(text(each.textColorInput));
+
+  const currentDiv = document.getElementById(id);
+  const createH2 = document.createElement('h2');
+  createH2.setAttribute('id', 'h2' + id);
+  createH2.classList.add(
+    'text-slate-200',
+    'w-fit',
+    'absolute',
+    'left-1/3',
+    'right-1/3'
+  );
+  const fillEl = currentDiv.appendChild(createH2);
+
+  fillEl.innerHTML = 'Copied!';
+
+  setTimeout(() => {
+    createH2.remove();
+  }, 1000);
+};
+
+const DetailedContent = ({ each }) => (
+  <div className="flex-col w-full sm:w-3/6 md:2-6 font-bold">
+    <h4 className="m-1 w-full block">
+      {each.referenceNameInput.length !== 0
+        ? each.referenceNameInput
+        : 'unknown name'}
+    </h4>
+    <p className="m-1">
+      <span className="text-Primary-light">HEX</span> {each.textColorInput}
+    </p>
+    <p className="m-1">
+      <span className="text-Primary-light">RGB</span>{' '}
+      {hexToRgb(each.textColorInput)}
+    </p>
+  </div>
+);
 
 const IndividualScheme = ({ data, setData }) => {
   const [showDetails, setShowDetails] = useState(true);
@@ -68,33 +106,13 @@ const IndividualScheme = ({ data, setData }) => {
                 key={each.id}
                 className="w-full h-full my-3 flex-wrap sm:flex-nowrap flex block sm:flex-row"
               >
-                {showDetails ? null : (
-                  <div className="flex-col w-full sm:w-3/6 md:2-6 font-bold">
-                    <h4 className="m-1 w-full block">
-                      {each.referenceNameInput.length !== 0
-                        ? each.referenceNameInput
-                        : 'unknown name'}
-                    </h4>
-                    <p className="m-1">
-                      <span className="text-Primary-light">HEX</span>{' '}
-                      {each.textColorInput}
-                    </p>
-                    <p className="m-1">
-                      <span className="text-Primary-light">RGB</span>{' '}
-                      {hexToRgb(each.textColorInput)}
-                    </p>
-                  </div>
-                )}
+                {!showDetails ? <DetailedContent each={each} /> : null}
                 <button
-                  onClick={() => {
-                    console.log('click');
-                    navigator.clipboard.writeText(
-                      displayCovertedCode(each.textColorInput)
-                    );
-                  }}
+                  onClick={() => copyText(displayCovertedCode, each, each.id)}
                   className="w-11/12 sm:5/12 md:3/6 h-20 my-3 p-1  "
                   style={{ backgroundColor: each.textColorInput }}
                 >
+                  <div id={each.id}></div>
                   {showDetails ? (
                     <p className="bg-white w-fit p-1 font-bold">
                       {displayCovertedCode(each.textColorInput)}
@@ -111,7 +129,7 @@ const IndividualScheme = ({ data, setData }) => {
             );
           })
         ) : (
-          <div className="w-Full">
+          <div className="w-Full block">
             <h1>{schemeNameConvert} is Empty, Add to scheme</h1>
           </div>
         )}
