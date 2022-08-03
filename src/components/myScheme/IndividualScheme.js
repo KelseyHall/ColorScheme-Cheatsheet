@@ -1,63 +1,10 @@
-import { TrashIcon } from '@heroicons/react/outline';
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { hexToRgb } from '../convertFunctions';
 import groupScheme from '../reducer';
+import IndividualColorElement from './IndividualColorElement';
 
 import PopupDisplay from './popup';
-
-const handleDelete = (item, data, setData) => {
-  const result = data.filter((each) => each.id !== item);
-  return setData(result);
-};
-
-function hexToRgb(hex) {
-  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  if (result) {
-    var r = parseInt(result[1], 16);
-    var g = parseInt(result[2], 16);
-    var b = parseInt(result[3], 16);
-    return r + ',' + g + ',' + b;
-  }
-  return null;
-}
-const copyText = (text, each, id) => {
-  navigator.clipboard.writeText(text(each.textColorInput));
-
-  const currentDiv = document.getElementById(id);
-  const createH2 = document.createElement('h2');
-  createH2.setAttribute('id', 'h2' + id);
-  createH2.classList.add(
-    'text-slate-200',
-    'w-fit',
-    'absolute',
-    'left-1/3',
-    'right-1/3'
-  );
-  const fillEl = currentDiv.appendChild(createH2);
-
-  fillEl.innerHTML = 'Copied!';
-
-  setTimeout(() => {
-    createH2.remove();
-  }, 1000);
-};
-
-const DetailedContent = ({ each }) => (
-  <div className="flex-col w-full sm:w-3/6 md:2-6 font-bold">
-    <h4 className="m-1 w-full block">
-      {each.referenceNameInput.length !== 0
-        ? each.referenceNameInput
-        : 'unknown name'}
-    </h4>
-    <p className="m-1">
-      <span className="text-Primary-light">HEX</span> {each.textColorInput}
-    </p>
-    <p className="m-1">
-      <span className="text-Primary-light">RGB</span>{' '}
-      {hexToRgb(each.textColorInput)}
-    </p>
-  </div>
-);
 
 const IndividualScheme = ({ data, setData }) => {
   const [showDetails, setShowDetails] = useState(true);
@@ -69,6 +16,7 @@ const IndividualScheme = ({ data, setData }) => {
   //removes % for spaces, takes out ? from url
   const schemeNameConvert = schemeName.replaceAll('%', ' ').substring(1);
 
+  //fix function leak 'convertCode check'
   let displayCovertedCode = (code) => {
     if (convertCode === 'rgb') {
       return hexToRgb(code);
@@ -102,30 +50,14 @@ const IndividualScheme = ({ data, setData }) => {
         {groupedData[schemeNameConvert] ? (
           groupedData[schemeNameConvert].map((each) => {
             return (
-              <div
+              <IndividualColorElement
                 key={each.id}
-                className="w-full h-full my-3 flex-wrap sm:flex-nowrap flex block sm:flex-row"
-              >
-                {!showDetails ? <DetailedContent each={each} /> : null}
-                <button
-                  onClick={() => copyText(displayCovertedCode, each, each.id)}
-                  className="w-11/12 sm:5/12 md:3/6 h-20 my-3 p-1  "
-                  style={{ backgroundColor: each.textColorInput }}
-                >
-                  <div id={each.id}></div>
-                  {showDetails ? (
-                    <p className="bg-white w-fit p-1 font-bold">
-                      {displayCovertedCode(each.textColorInput)}
-                    </p>
-                  ) : null}
-                </button>
-                <button
-                  className="w-1/12 text-Primary-light hover:text-Primary-dark"
-                  onClick={() => handleDelete(each.id, data, setData)}
-                >
-                  <TrashIcon className="w-5 h-5 " />
-                </button>
-              </div>
+                data={data}
+                setData={setData}
+                each={each}
+                showDetails={showDetails}
+                displayCovertedCode={displayCovertedCode}
+              />
             );
           })
         ) : (
