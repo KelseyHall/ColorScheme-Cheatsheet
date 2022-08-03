@@ -129,8 +129,8 @@ const IndividualScheme = ({ data, setData }) => {
             );
           })
         ) : (
-          <div className="w-Full block">
-            <h1>{schemeNameConvert} is Empty, Add to scheme</h1>
+          <div className="w-Full mt-12 text-center font-bold">
+            <h1>{schemeNameConvert} is Empty</h1>
           </div>
         )}
         <PopupDisplay
