@@ -4,8 +4,8 @@ import DisplaySchemes from './DisplayScheme';
 
 const HomepageScheme = ({ data, setData }) => {
   return (
-    <div>
-      <h2>
+    <div className="w-11/12 m-auto">
+      <h2 className="text-xl font-bold">
         <Link to="/MySchemes">My Schemes</Link>
       </h2>
       <div className="flex ">

@@ -7,7 +7,7 @@ const copyText = (text, each, id) => {
   createH2.classList.add(
     'text-slate-200',
     'w-fit',
-    'absolute',
+    'relative',
     'left-1/3',
     'right-1/3'
   );
