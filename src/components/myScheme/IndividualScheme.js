@@ -68,9 +68,9 @@ const IndividualScheme = ({ data, setData }) => {
             <h1>{schemeNameConvert} is Empty</h1>
           </div>
         )}
-        <div className="flex">
+        <div className="flex justify-center">
           <button
-            className=" w-fit block sm:w-auto text-Primary-light hover:text-Primary-dark  font-medium rounded-lg text-sm px-5 py-2.5 text-center my-3 mx-auto"
+            className=" w-fit  sm:w-auto text-Primary-light hover:text-Primary-dark  font-medium rounded-lg text-sm px-5 py-2.5 text-center my-3 "
             type="button"
             onClick={() => SaveScheme(schemeNameConvert)}
             data-html2canvas-ignore
