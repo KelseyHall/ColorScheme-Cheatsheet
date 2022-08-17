@@ -1,25 +1,12 @@
-import { TrashIcon } from '@heroicons/react/outline';
+import { DownloadIcon } from '@heroicons/react/outline';
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { hexToRgb } from '../convertFunctions';
 import groupScheme from '../reducer';
+import IndividualColorElement from './IndividualColorElement';
 
 import PopupDisplay from './popup';
-
-const handleDelete = (item, data, setData) => {
-  const result = data.filter((each) => each.id !== item);
-  return setData(result);
-};
-
-function hexToRgb(hex) {
-  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  if (result) {
-    var r = parseInt(result[1], 16);
-    var g = parseInt(result[2], 16);
-    var b = parseInt(result[3], 16);
-    return r + ',' + g + ',' + b;
-  }
-  return null;
-}
+import SaveScheme from './SaveScheme';
 
 const IndividualScheme = ({ data, setData }) => {
   const [showDetails, setShowDetails] = useState(true);
@@ -31,6 +18,7 @@ const IndividualScheme = ({ data, setData }) => {
   //removes % for spaces, takes out ? from url
   const schemeNameConvert = schemeName.replaceAll('%', ' ').substring(1);
 
+  //fix function leak 'convertCode check'
   let displayCovertedCode = (code) => {
     if (convertCode === 'rgb') {
       return hexToRgb(code);
@@ -39,10 +27,10 @@ const IndividualScheme = ({ data, setData }) => {
   };
 
   return (
-    <div className="max-w-screen-md m-auto p-3">
+    <div id="capture" className="max-w-screen-md m-auto p-3">
       <h2 className="text-2xl font-bold my-2 ">{schemeNameConvert}</h2>
 
-      <form className="float-left">
+      <form data-html2canvas-ignore className="float-left">
         <label>Display:</label>
         <select
           id="displayValue"
@@ -57,6 +45,7 @@ const IndividualScheme = ({ data, setData }) => {
       <button
         className="float-right"
         onClick={() => setShowDetails(!showDetails)}
+        data-html2canvas-ignore
       >
         {showDetails ? 'Show Details' : 'Hide Details'}
       </button>
@@ -64,62 +53,38 @@ const IndividualScheme = ({ data, setData }) => {
         {groupedData[schemeNameConvert] ? (
           groupedData[schemeNameConvert].map((each) => {
             return (
-              <div
+              <IndividualColorElement
                 key={each.id}
-                className="w-full h-full my-3 flex-wrap sm:flex-nowrap flex block sm:flex-row"
-              >
-                {showDetails ? null : (
-                  <div className="flex-col w-full sm:w-3/6 md:2-6 font-bold">
-                    <h4 className="m-1 w-full block">
-                      {each.referenceNameInput.length !== 0
-                        ? each.referenceNameInput
-                        : 'unknown name'}
-                    </h4>
-                    <p className="m-1">
-                      <span className="text-Primary-light">HEX</span>{' '}
-                      {each.textColorInput}
-                    </p>
-                    <p className="m-1">
-                      <span className="text-Primary-light">RGB</span>{' '}
-                      {hexToRgb(each.textColorInput)}
-                    </p>
-                  </div>
-                )}
-                <button
-                  onClick={() => {
-                    console.log('click');
-                    navigator.clipboard.writeText(
-                      displayCovertedCode(each.textColorInput)
-                    );
-                  }}
-                  className="w-11/12 sm:5/12 md:3/6 h-20 my-3 p-1  "
-                  style={{ backgroundColor: each.textColorInput }}
-                >
-                  {showDetails ? (
-                    <p className="bg-white w-fit p-1 font-bold">
-                      {displayCovertedCode(each.textColorInput)}
-                    </p>
-                  ) : null}
-                </button>
-                <button
-                  className="w-1/12 text-Primary-light hover:text-Primary-dark"
-                  onClick={() => handleDelete(each.id, data, setData)}
-                >
-                  <TrashIcon className="w-5 h-5 " />
-                </button>
-              </div>
+                data={data}
+                setData={setData}
+                each={each}
+                showDetails={showDetails}
+                displayCovertedCode={displayCovertedCode}
+              />
             );
           })
         ) : (
-          <div className="w-Full">
-            <h1>{schemeNameConvert} is Empty, Add to scheme</h1>
+          <div className="w-Full mt-12 text-center font-bold">
+            <h1>{schemeNameConvert} is Empty</h1>
           </div>
         )}
-        <PopupDisplay
-          setData={setData}
-          schemeName={schemeNameConvert}
-          buttonName={'Add Color'}
-        />
+        <div className="flex justify-center">
+          <button
+            className=" w-fit  sm:w-auto text-Primary-light hover:text-Primary-dark  font-medium rounded-lg text-sm px-5 py-2.5 text-center my-3 "
+            type="button"
+            onClick={() => SaveScheme(schemeNameConvert)}
+            data-html2canvas-ignore
+          >
+            <DownloadIcon className="h-8 w-8 mx-auto" />
+            Save Scheme
+          </button>
+
+          <PopupDisplay
+            setData={setData}
+            schemeName={schemeNameConvert}
+            buttonName={'Add Color'}
+          />
+        </div>
       </div>
     </div>
   );
