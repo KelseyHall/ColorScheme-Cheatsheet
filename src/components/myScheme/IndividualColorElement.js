@@ -51,6 +51,7 @@ const IndividualColorElement = ({
     <button
       className="w-1/12 text-Primary-light hover:text-Primary-dark"
       onClick={() => handleDelete(each.id, data, setData)}
+      data-html2canvas-ignore
     >
       <TrashIcon className="w-5 h-5 " />
     </button>

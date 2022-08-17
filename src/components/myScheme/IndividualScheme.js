@@ -1,3 +1,4 @@
+import { DownloadIcon } from '@heroicons/react/outline';
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { hexToRgb } from '../convertFunctions';
@@ -5,6 +6,7 @@ import groupScheme from '../reducer';
 import IndividualColorElement from './IndividualColorElement';
 
 import PopupDisplay from './popup';
+import SaveScheme from './SaveScheme';
 
 const IndividualScheme = ({ data, setData }) => {
   const [showDetails, setShowDetails] = useState(true);
@@ -25,10 +27,10 @@ const IndividualScheme = ({ data, setData }) => {
   };
 
   return (
-    <div className="max-w-screen-md m-auto p-3">
+    <div id="capture" className="max-w-screen-md m-auto p-3">
       <h2 className="text-2xl font-bold my-2 ">{schemeNameConvert}</h2>
 
-      <form className="float-left">
+      <form data-html2canvas-ignore className="float-left">
         <label>Display:</label>
         <select
           id="displayValue"
@@ -43,6 +45,7 @@ const IndividualScheme = ({ data, setData }) => {
       <button
         className="float-right"
         onClick={() => setShowDetails(!showDetails)}
+        data-html2canvas-ignore
       >
         {showDetails ? 'Show Details' : 'Hide Details'}
       </button>
@@ -65,11 +68,23 @@ const IndividualScheme = ({ data, setData }) => {
             <h1>{schemeNameConvert} is Empty</h1>
           </div>
         )}
-        <PopupDisplay
-          setData={setData}
-          schemeName={schemeNameConvert}
-          buttonName={'Add Color'}
-        />
+        <div className="flex">
+          <button
+            className=" w-fit block sm:w-auto text-Primary-light hover:text-Primary-dark  font-medium rounded-lg text-sm px-5 py-2.5 text-center my-3 mx-auto"
+            type="button"
+            onClick={() => SaveScheme(schemeNameConvert)}
+            data-html2canvas-ignore
+          >
+            <DownloadIcon className="h-8 w-8 mx-auto" />
+            Save Scheme
+          </button>
+
+          <PopupDisplay
+            setData={setData}
+            schemeName={schemeNameConvert}
+            buttonName={'Add Color'}
+          />
+        </div>
       </div>
     </div>
   );
