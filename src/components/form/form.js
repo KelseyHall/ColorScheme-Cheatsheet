@@ -5,7 +5,7 @@ const uuid = uuidv4;
 
 const inputFormStyle = {
   input: `block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900  rounded-lg border border-gray-500 appearance-none text-black border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`,
-  label: `absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1`,
+  label: `absolute rounded-3xl text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1`,
 };
 const buttonStyle =
   'bg-button-dark hover:bg-button-hover text-text-light rounded-full py-1.5 px-4 my-4  w-fit mx-auto';
@@ -41,7 +41,7 @@ const ColorForm = ({ setData, schemeName }) => {
             name="schemeName"
             maxLength="20"
             required
-            className="border-b-2 my-2 w-full px-2.5 pb-2.5 rounded-lg border-gray-600"
+            className="border my-2 w-full px-2.5 pb-2.5 rounded-lg border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 "
           />
         </label>
       ) : (
@@ -59,6 +59,7 @@ const ColorForm = ({ setData, schemeName }) => {
       <h3 className="mb-2">Add Colour</h3>
       <div className="flex">
         <div className="relative  w-10/12">
+          <label className={inputFormStyle.label}>Search Colour</label>
           <input
             id="textColorInput"
             type="text"
@@ -69,7 +70,6 @@ const ColorForm = ({ setData, schemeName }) => {
             placeholder=" "
             value={HexCode}
           />
-          <label className={inputFormStyle.label}>Search Colour</label>
         </div>
         <input
           id="ColorPickerInput"
@@ -88,14 +88,14 @@ const ColorForm = ({ setData, schemeName }) => {
         <p className="absolute bottom-0 pl-1.5 text-Primary-light">preview</p>
       </div>
       <div className="relative">
+        <label className={inputFormStyle.label}>reference name</label>
         <input
           id="referenceNameInput"
           type="text"
           name="referenceNameInput"
           className={inputFormStyle.input}
-          placeholder=" "
+          placeholder=""
         />
-        <label className={inputFormStyle.label}>reference name</label>
       </div>
       <div className="text-center">
         <button type="submit" className={`${buttonStyle}`}>
