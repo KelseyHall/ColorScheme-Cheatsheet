@@ -11,7 +11,7 @@ const SaveScheme = (title) => {
       format: [canvas.width, canvas.height],
     });
 
-    pdf.addImage(imgData, 'JPEG', 0, 0, canvas.width, canvas.height);
+    pdf.addImage(imgData, 'JPEG', 0, 0);
     pdf.save(`${title}-saved.pdf`);
   });
 };
